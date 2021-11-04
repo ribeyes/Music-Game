@@ -1,6 +1,7 @@
 package djmax;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.EventQueue;
 import java.awt.Graphics;
@@ -25,12 +26,14 @@ public class FirstView extends JFrame {
 		
 		private Image introBackground = new ImageIcon("images/introBackground.jpg").getImage();
 		
+		private ImageIcon exitXButtonImage = new ImageIcon(new ImageIcon("images/exitXButtonImage.png").getImage().
+				getScaledInstance(50, 50, Image.SCALE_SMOOTH));
 		private ImageIcon startButtonImage = new ImageIcon(new ImageIcon("images/startButton.png").getImage().
 				getScaledInstance(180, 250, Image.SCALE_SMOOTH));
 		private ImageIcon exitButtonImage = new ImageIcon(new ImageIcon("images/exitButton.png").getImage().
 				getScaledInstance(180, 250, Image.SCALE_SMOOTH));
 		
-		
+		private JButton exitXButton = new JButton(exitXButtonImage);
 		private JButton startButton = new JButton(startButtonImage);
 		private JButton exitButton = new JButton(exitButtonImage);
 		
@@ -62,7 +65,29 @@ public class FirstView extends JFrame {
 		setContentPane(introView);
 		setBackground(new Color(0, 0, 0, 0));
 		
-		startButton.setBounds(150, 400, 150, 50);
+		exitXButton.setBounds(1230, 0, 50, 50); // x 버튼
+		exitXButton.setBorderPainted(false);
+		exitXButton.setContentAreaFilled(false);
+		exitXButton.setFocusPainted(false);
+		exitXButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				exitXButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent e) {
+				exitXButton.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+			}
+			
+			@Override
+			public void mousePressed(MouseEvent e) {
+				System.exit(0);
+			}
+		});
+		getContentPane().add(exitXButton);
+		
+		startButton.setBounds(150, 400, 150, 50); //시작하기 버튼
 		startButton.setBorderPainted(false);
 		startButton.setContentAreaFilled(false);
 		startButton.setFocusPainted(false);
@@ -84,7 +109,7 @@ public class FirstView extends JFrame {
 		});
 		getContentPane().add(startButton);
 		
-		exitButton.setBounds(150, 500, 150, 50);
+		exitButton.setBounds(150, 500, 150, 50); //종료하기 버튼
 		exitButton.setBorderPainted(false);
 		exitButton.setContentAreaFilled(false);
 		exitButton.setFocusPainted(false);
