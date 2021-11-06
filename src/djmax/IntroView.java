@@ -17,8 +17,9 @@ public class IntroView extends JFrame {
 	public static final int SCREEN_WIDTH = 1280;
 	public static final int SCREEN_HEIGHT = 720;
 	
+
 	private JPanel contentPane;
-	
+ 
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -39,14 +40,27 @@ public class IntroView extends JFrame {
 		setTitle("리듬 게임");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
-		setBounds(100, 100, SCREEN_WIDTH, SCREEN_HEIGHT);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+
 		Music introMusic = new Music("introMusic.mp3", true);
-		//introMusic.start();
+		introMusic.start();
+		
+		GameView gamePanel = new GameView();
+		gamePanel.setBounds(0, 0, 1274, 691);
+		contentPane.add(gamePanel);
+		
+		
+		
+		MainView mainPanel = new MainView();
+		mainPanel.setBounds(0, 0, 1274, 691);
+		contentPane.add(mainPanel);
+		
+		mainPanel.gameView = gamePanel;
+		gamePanel.mainView = mainPanel;
+		
 		
 		JPanel introPanel = new JPanel() {
 			
@@ -81,7 +95,10 @@ public class IntroView extends JFrame {
 			}
 			@Override
 			public void mousePressed(MouseEvent e) {
-				
+				introPanel.setVisible(false);
+				mainPanel.setVisible(true);
+				introMusic.close();
+				mainPanel.selectTrack(0);
 			}
 		});
 		introPanel.add(startButton);
@@ -113,4 +130,6 @@ public class IntroView extends JFrame {
 		});
 		introPanel.add(exitButton);
 	}
+	
+	
 }
