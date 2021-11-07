@@ -11,15 +11,23 @@ import javax.swing.JButton;
 
 public class GameView extends JPanel {
 	JLabel gameBackground;
+	JLabel blackboard;
 	MainView mainView;
-	static Game game = new Game();
+			
+	JLabel key_L;
+	JLabel key_K;
+	JLabel key_D;
+	JLabel key_S;
+			
+	
 	
 	
 	public GameView() {
+		
 		setLayout(null);
 		setVisible(false);
-		
 		addKeyListener(new KeyListener());
+		
 		
 		JButton backButton = new JButton("");
 		backButton.setBounds(1171, 31, 60, 60);
@@ -47,6 +55,29 @@ public class GameView extends JPanel {
 				mainView.selectTrack(mainView.nowSelected);
 			}
 		});
+		
+		
+		
+		key_L = new JLabel("");
+		key_L.setBounds(360, 0, 120, 540);
+		add(key_L);
+		
+		key_K = new JLabel("");
+		key_K.setBounds(240, 0, 120, 540);
+		add(key_K);
+		
+		key_D = new JLabel("");
+		key_D.setBounds(121, 0, 120, 540);
+		add(key_D);
+		
+		key_S = new JLabel("");
+		key_S.setBounds(0, 0, 120, 540);
+		add(key_S);
+		
+		blackboard = new JLabel("");
+		blackboard.setIcon(new ImageIcon(IntroView.class.getResource("../images/blackboard.png")));
+		blackboard.setBounds(0, 0, 480, 691);
+		add(blackboard);
 		add(backButton);
 		
 		gameBackground = new JLabel("");

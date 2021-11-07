@@ -17,9 +17,9 @@ public class IntroView extends JFrame {
 	public static final int SCREEN_WIDTH = 1280;
 	public static final int SCREEN_HEIGHT = 720;
 	
+	public static Game game = new Game();
 
 	private JPanel contentPane;
- 
 	
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -45,10 +45,12 @@ public class IntroView extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
+		
 		Music introMusic = new Music("introMusic.mp3", true);
 		introMusic.start();
 		
 		GameView gamePanel = new GameView();
+		game.gameView = gamePanel;
 		gamePanel.setBounds(0, 0, 1274, 691);
 		contentPane.add(gamePanel);
 		

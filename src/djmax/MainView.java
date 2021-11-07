@@ -170,6 +170,7 @@ public class MainView extends JPanel {
 		gameView.setVisible(true);
 		gameBackground = new ImageIcon(MainView.class.getResource("/images/" + trackList.get(nowSelected).getGameImage()));
 		gameView.gameBackground.setIcon(gameBackground);
-		setFocusable(true);
+		gameView.setFocusable(true); // 이거 넣어야 키 입력했을때 반응함. 생성자에 넣으면 반응 안 함..
+		gameView.requestFocus(); // 이거 넣어야 키 입력했을때 반응함. 생성자에 넣으면 반응 안 함..
 	}
 }
