@@ -26,20 +26,24 @@ public class MainView extends JPanel {
 	private JLabel musicTitle;
 	private JLabel selectedLabel;
 	
-
-	
+	private Image screenImage;
+	private Graphics screenGraphic;
+	private Image mainBackground = new ImageIcon(IntroView.class.getResource("../images/mainBackground.gif")).
+			getImage();
 	
 	
 	public MainView() {
+		
+		trackList.add(new Track("Firefly Title.png", "Firefly Selected.png", "Firefly Game.jpg", 
+				"Firefly Selected.mp3", "Firefly Game.mp3", "Firefly"));
+		trackList.add(new Track("Higher Title.png", "Higher Selected.png", "Higher Game.jpg", 
+				"Higher Selected.mp3", "Higher Game.mp3", "Higher"));
+		trackList.add(new Track("Colors Title.png", "Colors Selected.png", "Colors Game.jpg", 
+				"Colors Selected.mp3", "Colors Game.mp3", "Colors"));
+		
 		setLayout(null);
 		setVisible(false);
 		
-		trackList.add(new Track("Firefly Title.png", "Firefly Selected.png", "Firefly Game.jpg", 
-				"Firefly Selected.mp3", "Firefly Game.mp3"));
-		trackList.add(new Track("Higher Title.png", "Higher Selected.png", "Higher Game.jpg", 
-				"Higher Selected.mp3", "Higher Game.mp3"));
-		trackList.add(new Track("Colors Title.png", "Colors Selected.png", "Colors Game.jpg", 
-				"Colors Selected.mp3", "Colors Game.mp3"));
 		
 		selectedLabel = new JLabel("");
 		selectedImage = new ImageIcon(MainView.class.getResource("/images/Firefly Selected.png"));
@@ -71,6 +75,7 @@ public class MainView extends JPanel {
 			}
 			@Override
 			public void mousePressed(MouseEvent e) {
+				Game.score = 0;
 				gameStart(nowSelected);
 			}
 		});
@@ -136,6 +141,20 @@ public class MainView extends JPanel {
 		
 	}
 	
+
+	public void paint(Graphics g) {
+		screenImage = createImage(1274, 691);
+		screenGraphic =screenImage.getGraphics();
+		screenDraw(screenGraphic);
+		g.drawImage(screenImage, 0, 0, null);
+	}
+	
+	public void screenDraw(Graphics g) {
+		g.drawImage(mainBackground, 0, 0, null);
+		paintComponents(g);
+		this.repaint();
+	}
+	
 	public void selectTrack(int nowSelected) {
 		if(selectedMusic != null)
 			selectedMusic.close();
@@ -167,9 +186,14 @@ public class MainView extends JPanel {
 		if(selectedMusic != null)
 			selectedMusic.close();
 		setVisible(false);
-		gameView.setVisible(true);
 		gameBackground = new ImageIcon(MainView.class.getResource("/images/" + trackList.get(nowSelected).getGameImage()));
-		gameView.gameBackground.setIcon(gameBackground);
+		Image changeImg = gameBackground.getImage().getScaledInstance(794, 691, Image.SCALE_SMOOTH);
+		ImageIcon changeSizeImage = new ImageIcon(changeImg);
+		gameView.gameBackground.setIcon(changeSizeImage); 
+		IntroView.game = new Game(trackList.get(nowSelected).getTitleName(), trackList.get(nowSelected).getGameMusic());
+		IntroView.game.start();
+		gameView.setLabelText(trackList.get(nowSelected).getTitleName());
+		gameView.setVisible(true);
 		gameView.setFocusable(true); // 이거 넣어야 키 입력했을때 반응함. 생성자에 넣으면 반응 안 함..
 		gameView.requestFocus(); // 이거 넣어야 키 입력했을때 반응함. 생성자에 넣으면 반응 안 함..
 	}

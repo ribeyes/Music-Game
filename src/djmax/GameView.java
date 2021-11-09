@@ -1,24 +1,38 @@
 package djmax;
 
 import java.awt.Cursor;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JButton;
 
 public class GameView extends JPanel {
 	JLabel gameBackground;
-	JLabel blackboard;
+	private JLabel titleName;
+	private JLabel score;
+	private String title;	
+	
 	MainView mainView;
-			
-	JLabel key_L;
-	JLabel key_K;
-	JLabel key_D;
-	JLabel key_S;
-			
+
+	//테스트
+	private Image screenImage;
+	private Graphics screenGraphic;
+	
+	static JLabel key_L = new JLabel("");
+	static JLabel key_K = new JLabel("");
+	static JLabel key_D = new JLabel("");
+	static JLabel key_S = new JLabel("");	
+	
+	private Image blackboard = new ImageIcon(GameView.class.getResource("../images/blackboard.png")).
+			getImage();
+
 	
 	
 	
@@ -53,35 +67,65 @@ public class GameView extends JPanel {
 				setVisible(false);
 				mainView.setVisible(true);
 				mainView.selectTrack(mainView.nowSelected);
+				IntroView.game.close();
 			}
 		});
+		add(backButton);
 		
 		
 		
-		key_L = new JLabel("");
 		key_L.setBounds(360, 0, 120, 540);
 		add(key_L);
 		
-		key_K = new JLabel("");
+		
 		key_K.setBounds(240, 0, 120, 540);
 		add(key_K);
 		
-		key_D = new JLabel("");
-		key_D.setBounds(121, 0, 120, 540);
+		
+		key_D.setBounds(120, 0, 120, 540);
 		add(key_D);
 		
-		key_S = new JLabel("");
+		
 		key_S.setBounds(0, 0, 120, 540);
 		add(key_S);
 		
-		blackboard = new JLabel("");
-		blackboard.setIcon(new ImageIcon(IntroView.class.getResource("../images/blackboard.png")));
-		blackboard.setBounds(0, 0, 480, 691);
-		add(blackboard);
-		add(backButton);
+		titleName = new JLabel("");
+		titleName.setFont(new Font("D2Coding", Font.PLAIN, 24));
+		titleName.setBounds(12, 577, 241, 36);
+		add(titleName);
+		
+		score = new JLabel("점수: ");
+		score.setFont(new Font("D2Coding", Font.PLAIN, 24));
+		score.setBounds(294, 631, 78, 36);
+		add(score);
+		
 		
 		gameBackground = new JLabel("");
-		gameBackground.setBounds(0, 0, 1274, 691);
+		gameBackground.setBounds(480, 0, 794, 691);
 		add(gameBackground);
+		
+		
+	}
+	
+	
+	public void paint(Graphics g) {
+		screenImage = createImage(1274, 691);
+		screenGraphic =screenImage.getGraphics();
+		screenDraw((Graphics2D) screenGraphic);
+		g.drawImage(screenImage, 0, 0, null);
+		
+	}
+	
+	public void screenDraw(Graphics2D g) {
+		g.drawImage(blackboard, 0, 0, null);
+		g.setFont(new Font("D2Coding", Font.PLAIN, 24));
+		g.drawString("" + Game.score, 370, 657);
+		IntroView.game.screenDraw(g);
+		paintComponents(g);
+		this.repaint();
+	}
+	
+	public void setLabelText(String title) {
+		titleName.setText("곡 제목: " + title);
 	}
 }
