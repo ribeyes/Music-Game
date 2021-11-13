@@ -16,7 +16,7 @@ public class MainView extends JPanel {
 
 	GameView gameView;
 	
-	ArrayList<Track> trackList = new ArrayList<>();
+	ArrayList<Track> trackList = new ArrayList<>(); // 음악 담기
 	
 	private ImageIcon gameBackground;
 	private ImageIcon titleImage;
@@ -31,9 +31,9 @@ public class MainView extends JPanel {
 	private Image mainBackground = new ImageIcon(IntroView.class.getResource("../images/mainBackground.gif")).
 			getImage();
 	
-	
+	//음악 선택 화면
 	public MainView() {
-		
+		//음악 3곡에 대한 정보
 		trackList.add(new Track("Firefly Title.png", "Firefly Selected.png", "Firefly Game.jpg", 
 				"Firefly Selected.mp3", "Firefly Game.mp3", "Firefly"));
 		trackList.add(new Track("Higher Title.png", "Higher Selected.png", "Higher Game.jpg", 
@@ -44,7 +44,7 @@ public class MainView extends JPanel {
 		setLayout(null);
 		setVisible(false);
 		
-		
+		//곡 선택 이미지
 		selectedLabel = new JLabel("");
 		selectedImage = new ImageIcon(MainView.class.getResource("/images/Firefly Selected.png"));
 		selectedLabel.setBounds(340, 100, 600, 450);
@@ -54,6 +54,7 @@ public class MainView extends JPanel {
 		musicTitle.setBounds(361, 560, 600, 120);
 		add(musicTitle);
 		
+		//시작하기 버튼
 		JButton startButton = new JButton("");
 		ImageIcon startButtonIcon = new ImageIcon(MainView.class.getResource("../images/start.png"));
 		ImageIcon startButtonEnterIcon = new ImageIcon(MainView.class.getResource("../images/startEnter.png"));
@@ -81,6 +82,7 @@ public class MainView extends JPanel {
 		});
 		add(startButton);
 		
+		//곡 선택 왼쪽 버튼
 		JButton leftButton = new JButton("");
 		ImageIcon leftButtonIcon = new ImageIcon(MainView.class.getResource("/images/leftButton.png"));
 		ImageIcon leftButtonEnterIcon = new ImageIcon(MainView.class.getResource("/images/leftButtonEntered.png"));
@@ -107,6 +109,7 @@ public class MainView extends JPanel {
 		});
 		add(leftButton);
 		
+		//곡 선택 오른쪽 버튼
 		JButton rightButton = new JButton("");
 		ImageIcon rightButtonIcon = new ImageIcon(MainView.class.getResource("/images/rightButton.png"));
 		ImageIcon rightButtonEnterIcon = new ImageIcon(MainView.class.getResource("/images/rightButtonEntered.png"));
@@ -155,6 +158,7 @@ public class MainView extends JPanel {
 		this.repaint();
 	}
 	
+	//곡 선택 관련 메소드들
 	public void selectTrack(int nowSelected) {
 		if(selectedMusic != null)
 			selectedMusic.close();
@@ -182,6 +186,7 @@ public class MainView extends JPanel {
 		selectTrack(nowSelected);
 	}
 	
+	//시작하기 버튼 눌러서 게임시작하는 메소드
 	public void gameStart(int nowSelected) {
 		if(selectedMusic != null)
 			selectedMusic.close();

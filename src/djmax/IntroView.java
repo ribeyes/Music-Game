@@ -4,6 +4,7 @@ import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -42,6 +43,7 @@ public class IntroView extends JFrame {
 		});
 	}
 
+	//실행했을때 첫 화면
 	public IntroView() {
 		setResizable(false);
 		setSize(new Dimension(1280, 720));
@@ -53,12 +55,12 @@ public class IntroView extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		
+		//첫 화면 음악 자동 실행
 		Music introMusic = new Music("introMusic.mp3", true);
 		introMusic.start();
 		
+		
 		GameView gamePanel = new GameView();
-		//game.gameView = gamePanel;
 		gamePanel.setBounds(0, 0, 1274, 691);
 		contentPane.add(gamePanel);
 		
@@ -71,16 +73,16 @@ public class IntroView extends JFrame {
 		mainPanel.gameView = gamePanel;
 		gamePanel.mainView = mainPanel;
 		
-		
+		//첫 화면
 		JPanel introPanel = new JPanel() {
 			public void paint(Graphics g) {
 				screenImage = createImage(1274, 691);
 				screenGraphic =screenImage.getGraphics();
-				screenDraw(screenGraphic);
+				screenDraw((Graphics2D) screenGraphic);
 				g.drawImage(screenImage, 0, 0, null);
 			}
 			
-			public void screenDraw(Graphics g) {
+			public void screenDraw(Graphics2D g) {
 				g.drawImage(introBackground, 0, 0, null);
 				paintComponents(g);
 				try {
@@ -95,7 +97,7 @@ public class IntroView extends JFrame {
 		introPanel.setBounds(0, 0, 1274, 691);
 		contentPane.add(introPanel);
 		
-		
+		//시작하기 버튼
 		JButton startButton = new JButton("");
 		ImageIcon startButtonIcon = new ImageIcon(IntroView.class.getResource("../images/start.png"));
 		ImageIcon startButtonEnterIcon = new ImageIcon(IntroView.class.getResource("../images/startEnter.png"));
@@ -125,7 +127,7 @@ public class IntroView extends JFrame {
 		});
 		introPanel.add(startButton);
 		
-		
+		//종료하기 버튼
 		JButton exitButton = new JButton("");
 		ImageIcon exitButtonIcon = new ImageIcon(IntroView.class.getResource("../images/exit.png"));
 		ImageIcon exitButtonEnterIcon = new ImageIcon(IntroView.class.getResource("../images/exitEnter.png"));

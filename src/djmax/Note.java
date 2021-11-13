@@ -27,6 +27,8 @@ public class Note extends Thread{
 	public void close() {
 		proceeded = false;
 	}
+	
+	//키에 맞게 노트 가로 위치 설정
 	public Note(String noteType) {
 		if(noteType.equals("S"))
 			x = 0;
@@ -40,6 +42,7 @@ public class Note extends Thread{
 		this.noteType = noteType;
 	}
 	
+	//노트 떨어지는 메소드
 	public void drop() {
 		y += IntroView.NOTE_SPEED;
 		if(y > 560) {
@@ -49,7 +52,13 @@ public class Note extends Thread{
 	}
 	
 	public void screenDraw(Graphics2D g) {
-		g.drawImage(noteYellow, x, y, null);
+		if(noteType.equals("S") || noteType.equals("L")) {
+			g.drawImage(noteBlue, x, y, null);
+		}
+		else {
+			g.drawImage(noteYellow, x, y, null);
+		}
+		
 	}
 	
 	@Override
@@ -70,6 +79,7 @@ public class Note extends Thread{
 		}
 	}
 	
+	//노트 판정
 	public void judge() {
 		if(y >= 515) {
 			Game.score += 10;

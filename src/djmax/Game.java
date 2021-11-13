@@ -11,11 +11,11 @@ public class Game extends Thread{
 	
 	private String titleName;
 	private String musicTitle;
-	private Music gameMusic;
+	private Music gameMusic; 
 	
 	static int score = 0;
 	
-	ArrayList<Note> noteList = new ArrayList<>();
+	ArrayList<Note> noteList = new ArrayList<>(); 
 	
 	public Game(String titleName, String musicTitle) {
 		this.titleName = titleName;
@@ -26,10 +26,11 @@ public class Game extends Thread{
 	
 	
 	public void screenDraw(Graphics2D g) {
+		
 		for (int i = 0; i < noteList.size(); i++) {
 			Note note = noteList.get(i);
 			if(!note.isProceeded()) {
-				noteList.remove(i);
+				noteList.remove(i); //떨어지는 노트에 키를 눌러서 노트를 없앰.
 				i--;
 			}
 			else {
@@ -38,6 +39,10 @@ public class Game extends Thread{
 		}
 	}
 	
+	/*
+	 * Beat 클래스의 각 노트에 대한 시작시간과 키 위치 정보를 받아서   
+	 * Note 클래스에서 실시간으로 노트를 게임화면에 나타나게 하는 역할을 한다.
+	 */
 	public void dropNotes() {
 		Beat[] beats = null;
 		if(titleName.equals("Firefly")) {
@@ -67,7 +72,7 @@ public class Game extends Thread{
 			};
 		}
 		int i = 0;
-		gameMusic.start();
+		gameMusic.start(); 
 		while(i < beats.length && !isInterrupted()) {
 			boolean dropped = false;
 			if(beats[i].getTime() <= gameMusic.getTime()) {
@@ -101,6 +106,7 @@ public class Game extends Thread{
 			}
 		}
 	}
+	
 	public String getTitleName() {
 		return titleName;
 	}
@@ -142,9 +148,7 @@ public class Game extends Thread{
 	}
 
     
-    
-	
-	
+    //음악 정지
 	public void close() {
 		gameMusic.close();
 		this.interrupt();

@@ -21,10 +21,11 @@ public class GameView extends JPanel {
 	
 	MainView mainView;
 
-	//테스트
+	
 	private Image screenImage;
 	private Graphics screenGraphic;
 	
+	//각 키를 눌렀을 때 나오는 이미지 설정을 위한 라벨
 	static JLabel key_L = new JLabel("");
 	static JLabel key_K = new JLabel("");
 	static JLabel key_D = new JLabel("");
@@ -35,14 +36,14 @@ public class GameView extends JPanel {
 
 	
 	
-	
+	//게임화면
 	public GameView() {
 		
 		setLayout(null);
 		setVisible(false);
 		addKeyListener(new KeyListener());
 		
-		
+		//뒤로가기 버튼
 		JButton backButton = new JButton("");
 		backButton.setBounds(1171, 31, 60, 60);
 		ImageIcon backButtonIcon = new ImageIcon(MainView.class.getResource("../images/backButton.png"));
@@ -89,11 +90,13 @@ public class GameView extends JPanel {
 		key_S.setBounds(0, 0, 120, 540);
 		add(key_S);
 		
+		//곡 이름 표시
 		titleName = new JLabel("");
 		titleName.setFont(new Font("D2Coding", Font.PLAIN, 24));
 		titleName.setBounds(12, 577, 241, 36);
 		add(titleName);
 		
+		//노트 판정 점수
 		score = new JLabel("점수: ");
 		score.setFont(new Font("D2Coding", Font.PLAIN, 24));
 		score.setBounds(294, 631, 78, 36);
