@@ -34,7 +34,7 @@ public class IntroView extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					IntroView frame = new IntroView();
+					IntroView frame = new IntroView(new MainView(), new GameView());
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -44,7 +44,7 @@ public class IntroView extends JFrame {
 	}
 
 	//실행했을때 첫 화면
-	public IntroView() {
+	public IntroView(MainView mainPanel, GameView gamePanel) {
 		setResizable(false);
 		setSize(new Dimension(1280, 720));
 		setTitle("리듬게임");
@@ -60,13 +60,11 @@ public class IntroView extends JFrame {
 		introMusic.start();
 		
 		
-		GameView gamePanel = new GameView();
 		gamePanel.setBounds(0, 0, 1274, 691);
 		contentPane.add(gamePanel);
 		
 		
 		
-		MainView mainPanel = new MainView();
 		mainPanel.setBounds(0, 0, 1274, 691);
 		contentPane.add(mainPanel);
 		

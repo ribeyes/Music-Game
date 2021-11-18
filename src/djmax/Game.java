@@ -10,7 +10,7 @@ public class Game extends Thread{
 	private ImageIcon keyboardIcon = new ImageIcon(Game.class.getResource("../images/keyboard.png")); 
 	
 	private String titleName;
-	private String musicTitle;
+	private String musicTitle; 
 	private Music gameMusic; 
 	
 	static int score = 0;
